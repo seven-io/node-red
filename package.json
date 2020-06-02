@@ -1,0 +1,35 @@
+{
+    "name": "red-contrib-sms-sms77",
+    "version": "1.0.0",
+    "description": "Sms77.io node for Node RED.",
+    "main": "sms77.js",
+    "scripts": {
+        "test": "npm run test"
+    },
+    "dependencies": {
+        "sms77-client": "^1.9.1",
+        "node-fetch": "^2.6.0",
+        "globalthis": "^1.0.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sms77io/node-red-contrib-sms-sms77.git"
+    },
+    "node-red": {
+        "nodes": {
+            "sms77": "sms77.js"
+        }
+    },
+    "keywords": [
+        "sms",
+        "text2speech",
+        "node-red",
+        "sms77"
+    ],
+    "author": "sms77 e.K.",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/sms77io/node-red-contrib-sms-sms77/issues"
+    },
+    "homepage": "https://github.com/sms77io/node-red-contrib-sms-sms77#readme"
+}

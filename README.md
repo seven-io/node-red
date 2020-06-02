@@ -1,4 +1,4 @@
-node-red-contrib-sms-sms77
+nodered-contrib-sms77
 ===========================
 
 <a href="http://nodered.org" target="_new">Node-RED</a> node to send SMS/Text2Speech message(s) via the Sms77 SMS gateway.
@@ -7,9 +7,9 @@ node-red-contrib-sms-sms77
 Install
 -------
 
-Run the following command in your Node-RED user directory - typically `~/.node-red`
+Run the following command in your Node-RED user directory - usually `~/.node-red`
 
-    npm install node-red-contrib-sms-sms77
+    npm install nodered-contrib-sms77
 
 Properties
 ----------

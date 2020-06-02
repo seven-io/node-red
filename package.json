@@ -1,10 +1,9 @@
 {
-    "name": "red-contrib-sms-sms77",
+    "name": "nodered-contrib-sms77",
     "version": "1.0.0",
-    "description": "Sms77.io node for Node RED.",
-    "main": "sms77.js",
+    "description": "Sms77.io node for Node-RED.",
     "scripts": {
-        "test": "npm run test"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
         "sms77-client": "^1.9.1",
@@ -13,11 +12,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sms77io/node-red-contrib-sms-sms77.git"
+        "url": "git+https://github.com/sms77io/nodered-contrib-sms77.git"
     },
     "node-red": {
         "nodes": {
-            "sms77": "sms77.js"
+            "sms77Sms": "nodes/sms/sms.js",
+            "sms77Voice": "nodes/voice/voice.js"
         }
     },
     "keywords": [
@@ -29,7 +29,7 @@
     "author": "sms77 e.K.",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/sms77io/node-red-contrib-sms-sms77/issues"
+        "url": "https://github.com/sms77io/nodered-contrib-sms77/issues"
     },
-    "homepage": "https://github.com/sms77io/node-red-contrib-sms-sms77#readme"
+    "homepage": "https://github.com/sms77io/nodered-contrib-sms77#readme"
 }

@@ -1,7 +1,7 @@
-<script type='text/x-red' data-template-name='sms77'>
+<script type='text/x-red' data-template-name='sms77Sms'>
     <div class='form-row'>
-        <label for='node-input-sms77'><i class='fa fa-user'></i> Sms77</label>
-        <input id='node-input-sms77'>
+        <label for='node-input-sms77Sms'><i class='fa fa-user'></i> Sms77Sms</label>
+        <input id='node-input-sms77Sms'>
     </div>
 
     <div class='form-row'>
@@ -10,8 +10,8 @@
     </div>
 
     <div class='form-row'>
-        <label for='node-input-numbers'><i class='fa fa-mobile' style='font-size:160%'></i> Number(s)</label>
-        <input id='node-input-numbers' placeholder='topic'>
+        <label for='node-input-recipients'><i class='fa fa-mobile' style='font-size:160%'></i> Recipient(s)</label>
+        <input id='node-input-recipients' placeholder='topic'>
     </div>
 
     <div class='form-row'>
@@ -36,6 +36,7 @@
         <label for='node-input-name'><i class='fa fa-tag'></i> Name</label>
         <input id='node-input-name' placeholder='Name'>
     </div>
+
 </script>
 
 <script type='text/x-red' data-template-name='sms77Config'>
@@ -48,31 +49,28 @@
         <label for='node-config-input-name'><i class='fa fa-tag'></i> Name</label>
         <input id='node-config-input-name' placeholder='sms77Config'>
     </div>
+
 </script>
 
-<script type='text/x-red' data-help-name='sms77'>
+<script type='text/x-red' data-help-name='sms77Sms'>
   Send SMS & Text2Speech message(s) using the Sms77 SMS gateway.
   <hr/>
   <p><b>Properties</b></p>
-  <code>Message</code> Text to be sent. If left empty it will use <i>msg.payload</i>
+  <code>Message</code> Text to be sent. Defaults to <i>msg.payload</i> if not set.
   <br/>
-  <code>Numbers</code> Comma separated list of mobile numbers. Defaults to <i>msg.topic</i>
+  <code>Recipients</code> Comma separated list of mobile numbers or contacts. Defaults to <i>msg.topic</i> if not set.
   <br/>
   <code>Delay</code> Date/Timestamp for delayed dispatch. Accepts an UNIX timestamp or a date of format yyyy-mm-dd hh:ii eg. 1141511104 or 2016-03-04 23:25:04.
+
 
 
 </script>
 
 <script type='text/javascript'>
-    RED.nodes.registerType('sms77', {
-        align: 'right',
+    RED.nodes.registerType('sms77Sms', {
         category: 'mobile',
         color: '#01C965',
         defaults: {
-            message: {},
-            name: {value: 'sms77'},
-            numbers: {},
-            sms77: {type: 'sms77Config'},
             delay: {},
             from: {},
             json: {
@@ -81,15 +79,13 @@
                 icon: 'red/images/typedInput/bool.png',
                 options: ['true', 'false',]
             },
+            message: {},
+            name: {value: 'sms77Sms'},
+            recipients: {},
+            sms77Sms: {type: 'sms77Config'},
         },
-        icon: 'light.png',
+        icon: 'envelope.png',
         inputs: 1,
-        label() {
-            return this.name || this.title || 'sms77';
-        },
-        labelStyle() {
-            return this.name ? 'node_label_italic' : '';
-        },
         outputs: 1,
     });
 
@@ -100,9 +96,6 @@
         },
         defaults: {
             name: {value: 'sms77Config'}
-        },
-        label() {
-            return this.name;
         },
     });
 </script>

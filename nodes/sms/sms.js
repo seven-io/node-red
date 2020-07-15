@@ -1,106 +1,58 @@
-const Base = require('../Base');
+const BaseNode = require('../../BaseNode');
 
-module.exports = function Sms77Sms(RED) {
-    RED.nodes.registerType('sms77Sms', function Sms77Node(config) {
-        RED.nodes.createNode(this, config);
-        this.delivered = 0;
-        this.failed = 0;
-        this.sent = 0;
-        this.sms77Sms = RED.nodes.getNode(config.sms77Sms);
-        this.sms77Client = new Base.Sms77Client(this.sms77Sms.credentials.apiKey, 'node-red');
-        this.message = config.message;
-        this.recipients = config.recipients;
-        this.delay = config.delay;
-        this.from = config.from;
-        this.json = config.json;
-        this.buffer = [];
+module.exports = function (RED) {
+    'use strict';
 
-        this.status({shape: 'ring', fill: 'blue', text: this.sms77Sms.name});
+    class Sms77SmsNode {
+        constructor(config) {
+            BaseNode(this, RED, config);
+        }
 
-        this.on('input', function onInputSMS(node, msg) {
-            const text = node.message ? node.message : Base.getMsgProps(msg, 'payload');
-            Array.prototype.push.apply(node.buffer,
-                (node.recipients ? node.recipients.split(',') : Base.getMsgProps(msg, 'topic').split(','))
-                    .map(to => ({text, to,})));
+        _onInput(msg, send, done) {
+            const params = {
+                delay: this._emptyStringFallback('delay'),
+                from: this._emptyStringFallback('from'),
+                json: 'true' === Sms77SmsNode.CFG.json,
+                text: this._emptyStringFallback('message', msg.payload),
+                to: this._emptyStringFallback('recipients', msg.topic),
+                debug: 'true' === Sms77SmsNode.CFG.debug,
+                details: 'true' === Sms77SmsNode.CFG.details,
+                foreign_id: this._emptyStringFallback('foreign_id'),
+                flash: 'true' === Sms77SmsNode.CFG.flash,
+                label: this._emptyStringFallback('label'),
+                no_reload: 'true' === Sms77SmsNode.CFG.no_reload,
+                performance_tracking: 'true' === Sms77SmsNode.CFG.performance_tracking,
+                ttl: this._emptyStringFallback('ttl'),
+                udh: this._emptyStringFallback('udh'),
+                unicode: 'true' === Sms77SmsNode.CFG.unicode,
+                utf8: 'true' === Sms77SmsNode.CFG.utf8,
+            };
 
-            const elem = node.buffer.shift();
+            const successHandler = response => {
+                const code = params.json ? response.success : response;
+                const isValid = 100 === parseInt(code);
 
-            const smsParams = {text: elem.text, to: elem.to,};
-            if (config.from && config.from.length) {
-                smsParams.from = config.from;
-            }
-            if ('json' in config) {
-                smsParams.json = 'true' === config.json;
-            }
-            if (config.delay && config.delay.length) {
-                smsParams.delay = config.delay;
-            }
+                let failed = 0;
+                let sent = params.json ? 0 : 1;
 
-            node.sms77Client.sms(smsParams)
-                .then(res => {
-                    if (100 === Number.parseInt(smsParams.json ? res.success : res)) {
-                        node.sent++;
+                if (!isValid) {
+                    return this._done(done, JSON.stringify(response), msg);
+                }
 
-                        node.delivered++;
-
-                        node.log(`${node.sms77Sms.credentials.name} | ${elem.to} | ${elem.text}`);
-
-                        node.send({
-                            payload: {
-                                text: elem.text,
-                                apiKey: node.sms77Sms.credentials.apiKey,
-                                to: elem.to,
-                                response: res,
-                            }
-                        });
-
-                        if (node.buffer.length === 0) {
-                            node.status({
-                                fill: 'yellow',
-                                shape: 'dot',
-                                text: `${node.sent}, success: ${node.delivered}, error: ${node.failed}`,
-                            });
-                        }
-                    } else {
-                        Base.onError(node, res);
-
-                        node.send({
-                            payload: {
-                                apiKey: node.sms77Sms.credentials.apiKey,
-                                response: res,
-                                text: elem.text,
-                                to: elem.to,
-                            }
-                        });
+                if (params.json) {
+                    for (const msg of response.messages) {
+                        true === msg.success ? sent++ : failed++;
                     }
-                })
-                .catch(err => {
-                    Base.onError(node, err.toString());
+                }
 
-                    node.send({
-                        payload: {
-                            apiKey: node.sms77Sms.credentials.apiKey,
-                            error: err,
-                            to: elem.to,
-                            text: elem.text,
-                        }
-                    });
-                });
+                this._onSuccess(sent, failed, send, msg, response, done);
+            };
 
-            if (node.buffer.length > 0) {
-                node.status({fill: 'grey', shape: 'dot', text: `${node.buffer.length} pending`,});
-            }
-        }.bind(undefined, this));
+            Sms77SmsNode.CLIENT.sms(params)
+                .then(successHandler)
+                .catch(this._errorHandler(done, msg));
+        }
+    }
 
-        this.on('close', function () {
-            this.buffer = [];
-        });
-    });
-
-    RED.nodes.registerType('sms77Config', function Sms77ConfigNode(config) {
-            RED.nodes.createNode(this, config);
-
-            this.name = config.name;
-        },
-        {credentials: {apiKey: {type: 'text',}},});
+    RED.nodes.registerType('sms77-sms', Sms77SmsNode);
 };

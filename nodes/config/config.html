@@ -1,0 +1,37 @@
+<script type='text/javascript'>
+    RED.nodes.registerType('sms77-config', {
+        category: 'config',
+        credentials: {
+            apiKey: {
+                required: true,
+                type: 'password',
+            },
+        },
+        defaults: {
+            name: {
+                value: 'My Sms77.io Config',
+            },
+        },
+    });
+</script>
+
+<script data-template-name='sms77-config' type='text/html'>
+    <div class='form-row'>
+        <label for='node-config-input-apiKey'><i class='fa fa-lock'></i> API Key</label>
+        <input type='password' id='node-config-input-apiKey'>
+    </div>
+
+    <div class='form-rw'>
+        <label for='node-config-input-name'><i class='fa fa-tag'></i>
+            Name</label>
+        <input id='node-config-input-name' placeholder='My Sms77.io config'>
+    </div>
+</script>
+
+<script data-help-name='sms77-config' type='text/html'>
+    Sms77.io global configuration.
+    <hr/>
+    <p><b>Properties</b></p>
+    <code>API key</code> Required for sending messages.
+    <code>Name</code> A custom identifier.
+</script>

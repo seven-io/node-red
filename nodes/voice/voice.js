@@ -1,77 +1,38 @@
-const Base = require('../Base');
+const BaseNode = require('../../BaseNode');
 
-module.exports = function Sms77Voice(RED) {
-    RED.nodes.registerType('sms77Voice', function Sms77VoiceNode(config) {
-        RED.nodes.createNode(this, config);
-        this.delivered = 0;
-        this.failed = 0;
-        this.sent = 0;
-        this.sms77Voice = RED.nodes.getNode(config.sms77Voice);
-        this.sms77Client = new Base.Sms77Client(this.sms77Voice.credentials.apiKey, 'node-red');
-        this.message = config.message;
-        this.recipients = config.recipients;
-        this.from = config.from;
-        this.xml = config.xml;
+module.exports = function (RED) {
+    'use strict';
 
-        this.status({shape: 'ring', fill: 'blue', text: this.sms77Voice.name});
+    class Sms77VoiceNode {
+        constructor(config) {
+            BaseNode(this, RED, config);
+        }
 
-        this.on('input', function onInputVoice(node, msg) {
-            const text = node.message ? node.message : Base.getMsgProps(msg, 'payload');
+        _onInput(msg, send, done) {
+            const params = {
+                from: this._emptyStringFallback('from'),
+                text: this._emptyStringFallback('message', msg.payload),
+                to: this._emptyStringFallback('recipients', msg.topic),
+                xml: 'true' === Sms77VoiceNode.CFG.xml,
+            };
 
-            const recipients = node.recipients ? node.recipients.split(',') : Base.getMsgProps(msg, 'topic').split(',')
-                .map(to => ({text, to,})).shift();
+            const successHandler = response => {
+                const isValid = 100 === response.code;
+                const failed = isValid ? 0 : 1;
+                const sent = isValid ? 1 : 0;
 
-            console.log({config, node, text, self: this});
-
-            const voiceParams = {text,};
-            if (config.from && config.from.length) {
-                voiceParams.from = config.from;
-            }
-            if ('xml' in config) {
-                voiceParams.xml = 'true' === config.xml;
-            }
-
-            const responses = [];
-            for (const recipient of recipients) {
-                console.log({recipient});
-
-                voiceParams.to = recipient;
-
-                node.sms77Client.voice(voiceParams)
-                    .then(res => {
-                        responses.push(res);
-
-                        if (100 === res.code) {
-                            node.sent++;
-
-                            node.delivered++;
-
-                            node.log(`${node.sms77Voice.credentials.apiKey} | ${recipients} | ${text}`);
-                        } else {
-                            Base.onError(node, res);
-                        }
-                    })
-                    .catch(err => {
-                        responses.push(err);
-
-                        Base.onError(node, err.toString());
-                    });
-            }
-
-            node.status({
-                fill: 'yellow',
-                shape: 'dot',
-                text: `${node.sent}, success: ${node.delivered}, error: ${node.failed}`,
-            });
-
-            node.send({
-                payload: {
-                    apiKey: node.sms77Voice.credentials.apiKey,
-                    responses,
-                    text,
-                    to: recipients,
+                if (!isValid) {
+                    return this._done(done, JSON.stringify(response), msg);
                 }
-            });
-        }.bind(undefined, this));
-    });
+
+                this._onSuccess(sent, failed, send, msg, response, done);
+            };
+
+            Sms77VoiceNode.CLIENT.voice(params)
+                .then(successHandler)
+                .catch(this._errorHandler(done, msg));
+        }
+    }
+
+    RED.nodes.registerType('sms77-voice', Sms77VoiceNode);
 };

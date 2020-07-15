@@ -1,35 +1,36 @@
 {
-    "name": "nodered-contrib-sms77",
-    "version": "1.0.0",
-    "description": "Sms77.io node for Node-RED.",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "dependencies": {
-        "sms77-client": "^1.9.1",
-        "node-fetch": "^2.6.0",
-        "globalthis": "^1.0.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/sms77io/nodered-contrib-sms77.git"
-    },
-    "node-red": {
-        "nodes": {
-            "sms77Sms": "nodes/sms/sms.js",
-            "sms77Voice": "nodes/voice/voice.js"
-        }
-    },
-    "keywords": [
-        "sms",
-        "text2speech",
-        "node-red",
-        "sms77"
-    ],
-    "author": "sms77 e.K.",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/sms77io/nodered-contrib-sms77/issues"
-    },
-    "homepage": "https://github.com/sms77io/nodered-contrib-sms77#readme"
+  "name": "nodered-contrib-sms77",
+  "version": "2.0.0",
+  "description": "Sms77.io node collection for Node-RED.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "sms77-client": "^1.9.2",
+    "node-fetch": "^2.6.0",
+    "globalthis": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sms77io/nodered-contrib-sms77.git"
+  },
+  "node-red": {
+    "nodes": {
+      "sms77-config": "nodes/config/config.js",
+      "sms77-sms": "nodes/sms/sms.js",
+      "sms77-voice": "nodes/voice/voice.js"
+    }
+  },
+  "keywords": [
+    "sms",
+    "text2speech",
+    "node-red",
+    "sms77"
+  ],
+  "author": "sms77 e.K.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sms77io/nodered-contrib-sms77/issues"
+  },
+  "homepage": "https://github.com/sms77io/nodered-contrib-sms77#readme"
 }

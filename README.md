@@ -1,19 +1,20 @@
-nodered-contrib-sms77
-===========================
+![alt text](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "sms77")
+# nodered-contrib-sms77
 
-<a href="http://nodered.org" target="_new">Node-RED</a> node to send SMS/Text2Speech message(s) via the Sms77 SMS gateway.
+<a href="http://nodered.org" target="_blank" rel="noopener noreferrer">Node-RED</a> node collection for sending SMS/Text2Speech message(s) via the Sms77.io gateway.
 
 
-Install
--------
+## Installation
 
-Run the following command in your Node-RED user directory - usually `~/.node-red`
+Run the following command in your Node-RED user directory - usually `~/.node-red`:
 
-    npm install nodered-contrib-sms77
+<dl>
+    <dt>NPM</dt>
+    <dd><code>npm install nodered-contrib-sms77</code></dd><br>
+    <dt>Yarn</dt>
+    <dd><code>yarn add nodered-contrib-sms77</code></dd>
+</dl>
 
-Properties
-----------
+### Request Options
 
-- **Message** The text to be sent. Defaults to msg.payload if not set.
-- **Number(s)** A comma separated list of mobile numbers. Defaults to msg.topic if not set.
-- **Delay** Date/Timestamp for delayed dispatch. Accepts an UNIX timestamp or a date of format yyyy-mm-dd hh:ii eg. 1141511104 or 2016-03-04 23:25:04.
+Visit our <a href="http://www.sms77.io/en/docs/gateway/http-api/">API Documentation</a> for a detailed request description.

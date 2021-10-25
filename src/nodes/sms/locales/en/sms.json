@@ -1,0 +1,22 @@
+{
+    "sms77-sms": {
+        "config": "Config",
+        "debug": "Debug?",
+        "delay": "Delay",
+        "details": "Details?",
+        "flash": "Flash?",
+        "foreignId": "Foreign ID",
+        "from": " From (Sender)",
+        "json": "Return JSON?",
+        "label": "Label",
+        "message": "Message",
+        "name": "Name",
+        "noReload": "No Reload?",
+        "performanceTracking": "Performance Tracking?",
+        "recipients": "Recipient(s)",
+        "ttl": "TTL",
+        "udh": "UDH",
+        "unicode": "Unicode?",
+        "utf8": "UTF8?"
+    }
+}

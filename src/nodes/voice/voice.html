@@ -7,17 +7,27 @@
                 required: true,
                 type: 'sms77-config',
             },
-            from: {},
-            message: {},
+            from: {
+                value: '',
+            },
+            json: {
+                value: 'false',
+            },
+            message: {
+                value: '',
+            },
             name: {
                 value: 'sms77-voice',
             },
-            recipients: {},
-            xml: {},
+            recipients: {
+                value: '',
+            },
+            xml: {
+                value: 'false',
+            },
         },
         icon: 'feed.png',
         inputs: 1,
-        outputs: 1,
         oneditprepare() {
             this.editor = RED.editor.createEditor({
                 id: 'node-input-message-editor',
@@ -27,64 +37,61 @@
                     showPrintMargin: false
                 },
                 value: $('#node-input-message').val(),
-            });
+            })
 
-            const $expandEditor = $('#node-sms77-expand-editor');
+            const $expandEditor = $('#node-sms77-expand-editor')
 
-            const onClickExpandEditor = ev => {
-                ev.preventDefault();
+            this.editor.focus()
+
+            RED.popover.tooltip($expandEditor, RED._('node-red:common.label.expand'))
+
+            $expandEditor.on('click', ev => {
+                ev.preventDefault()
 
                 const complete = (value, cursor) => {
-                    this.editor.setValue(value, -1);
+                    this.editor.setValue(value, -1)
 
                     this.editor.gotoLine(
-                        cursor.row + 1, cursor.column, false);
+                        cursor.row + 1, cursor.column, false)
 
-                    setTimeout(() => this.editor.focus(), 300);
-                };
+                    setTimeout(() => this.editor.focus(), 300)
+                }
 
-                const opts = {
+                RED.editor.editText({
                     complete,
                     cursor: this.editor.getCursorPosition(),
                     mode: 'text',
                     value: this.editor.getValue(),
                     width: 'Infinity',
-                };
-
-                RED.editor.editText(opts);
-            };
-
-            this.editor.focus();
-
-            RED.popover.tooltip(
-                $expandEditor, RED._('node-red:common.label.expand'));
-
-            $expandEditor.on('click', onClickExpandEditor);
+                })
+            })
         },
         oneditsave() {
-            $('#node-input-message').val(this.editor.getValue());
+            $('#node-input-message').val(this.editor.getValue())
 
-            this.editor.destroy();
+            this.editor.destroy()
 
-            delete this.editor;
+            delete this.editor
         },
-    });
+        outputs: 1,
+    })
 </script>
 
 <script data-template-name='sms77-voice' type='text/html'>
     <div class='form-row'>
-        <label for='node-input-config'><i class='fa fa-user'></i> Config</label>
-        <input id='node-input-config'>
+        <label for='node-input-config' data-i18n='sms77-voice.config'><i
+                class='fa fa-user'></i></label>
+        <input id='node-input-config'/>
     </div>
 
     <div class='form-row' style='position: relative; margin-bottom: 0;'>
         <label for='node-input-message'>
             <i class='fa fa-file-code-o'></i>
 
-            <span>Message</span>
+            <span data-i18n='sms77-voice.message'></span>
         </label>
 
-        <input type='hidden' id='node-input-message' autofocus='autofocus'>
+        <input type='hidden' id='node-input-message' autofocus/>
 
         <div style='position: absolute; right: 0; display: inline-block;
         text-align: right; font-size: 0.8em;'>
@@ -101,43 +108,43 @@
     </div>
 
     <div class='form-row'>
-        <label for='node-input-recipients'><i class='fa fa-mobile'
-                                              style='font-size:160%'></i>
-            Recipient(s)</label>
-        <input id='node-input-recipients' placeholder='topic'>
+        <label for='node-input-recipients' data-i18n='sms77-voice.recipients'><i
+                class='fa fa-mobile'
+                style='font-size:160%'></i></label>
+        <input id='node-input-recipients' placeholder='topic'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-from'><i class='fa fa-envelope'></i> From
-            (sender)</label>
-        <input id='node-input-from'>
+        <label for='node-input-from' data-i18n='sms77-voice.from'><i
+                class='fa fa-envelope'></i></label>
+        <input id='node-input-from' maxlength='16'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-xml'><i class='fa fa-microchip'></i> Is
-            XML?</label>
+        <label for='node-input-xml' data-i18n='sms77-voice.xml'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-xml'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-name'><i class='fa fa-tag'></i> Name</label>
-        <input id='node-input-name' placeholder='Name'>
+        <label for='node-input-json' data-i18n='sms77-voice.json'><i
+                class='fa fa-microchip'></i></label>
+        <select id='node-input-json'>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
+        </select>
     </div>
-</script>
 
-<script data-help-name='sms77-voice' type='text/html'>
-    Send a Text2Speech message via Sms77.io.
-    <hr/>
-    <p><b>Properties</b></p>
-    <code>To</code> The sender number or contact name. Only one value per request.
-    <br/>
-    <code>Text</code> The text to read. Accepts XML if property "xml" is set to true.
-    <br/>
-    <code>XML</code> Set to true if text is of XML format. Defaults to
-    <i>false</i>.
-    <br/>
-    <code>From</code> Set a custom sender identifier.
+    <div class='form-row'>
+        <label for='node-input-name' data-i18n='sms77-voice.name'><i
+                class='fa fa-tag'></i></label>
+        <input id='node-input-name' placeholder='Name'/>
+    </div>
 </script>

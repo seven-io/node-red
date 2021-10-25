@@ -1,3 +1,10 @@
+3.0.0
+==================
+* fixed nodes paths
+* enable sending multiple text-to-speech calls
+* prepared internationalization
+* add option voice.json
+
 2.0.0
 ==================
   * changed nodes naming style from PascalCase to kebab-case

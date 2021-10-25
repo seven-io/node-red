@@ -1,0 +1,52 @@
+<script data-help-name='sms77-sms' type='text/html'>
+    Send SMS message(s) via sms77.io.
+    <hr/>
+
+    <p><b>Properties</b></p>
+
+    <code>Message</code> Text to be sent. Defaults to
+    <i>msg.payload</i> if not set.
+    <br/>
+
+    <code>Recipients</code> Comma separated list of mobile numbers or contacts. Defaults to
+    <i>msg.topic</i> if not set.
+    <br/>
+
+    <code>Delay</code> Date/Timestamp for delayed dispatch. Accepts an UNIX timestamp or a date of format yyyy-mm-dd hh:ii eg. 1141511104 or 2016-03-04 23:25:04.
+    <br/>
+
+    <code>JSON</code> Set to
+    <i>true</i> if you want a detailed response in JSON format. Defaults to
+    <i>false</i>.
+    <br/>
+
+    <code>Unicode</code> Force unicode transmission for Cyrillic, Arabic etc characters. SMS length gets reduced to 70 characters.
+    <br/>
+
+    <code>Flash</code> Setting this option to
+    <i>true</i> sends the message with flash enabled. Depending on the phone model, flash messages usually get displayed directly in the receiver's display and don't get saved.
+    <br/>
+
+    <code>UDH</code> Set a custom user data header.
+    <br/>
+
+    <code>TTL</code> Set a custom time to live.
+    <br/>
+
+    <code>No Reload</code> Allow sending duplicate messages - text and recipient alike within 180 seconds.
+    <br/>
+
+    <code>Label</code> Add a custom message label.
+    <br/>
+
+    <code>Performance Tracking</code> Enable performance tracking for found URLs.
+    <br/>
+
+    <code>Foreign
+        ID</code> Custom ID included in DLR callbacks etc. Max. 64 chars, allowed characters:
+    <i>a-z, A-Z, 0-9, .-_@</i>.
+    <br/>
+
+    <code>UTF-8</code> Force UTF-8 character set.
+    <br/>
+</script>

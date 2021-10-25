@@ -29,7 +29,6 @@
         },
         icon: 'envelope.png',
         inputs: 1,
-        outputs: 1,
         oneditprepare() {
             this.editor = RED.editor.createEditor({
                 id: 'node-input-message-editor',
@@ -39,59 +38,56 @@
                     showPrintMargin: false
                 },
                 value: $('#node-input-message').val(),
-            });
+            })
 
-            const $expandEditor = $('#node-sms77-expand-editor');
+            const $expandEditor = $('#node-sms77-expand-editor')
 
-            const onClickExpandEditor = ev => {
-                ev.preventDefault();
+            this.editor.focus()
+
+            RED.popover.tooltip(
+                $expandEditor, RED._('node-red:common.label.expand'))
+
+            $expandEditor.on('click', ev => {
+                ev.preventDefault()
 
                 const complete = (value, cursor) => {
-                    this.editor.setValue(value, -1);
+                    this.editor.setValue(value, -1)
 
-                    this.editor.gotoLine(
-                        cursor.row + 1, cursor.column, false);
+                    this.editor.gotoLine(cursor.row + 1, cursor.column, false)
 
-                    setTimeout(() => this.editor.focus(), 300);
-                };
+                    setTimeout(() => this.editor.focus(), 300)
+                }
 
-                const opts = {
+                RED.editor.editText({
                     complete,
                     cursor: this.editor.getCursorPosition(),
                     mode: 'text',
                     value: this.editor.getValue(),
                     width: 'Infinity',
-                };
-
-                RED.editor.editText(opts);
-            };
-
-            this.editor.focus();
-
-            RED.popover.tooltip(
-                $expandEditor, RED._('node-red:common.label.expand'));
-
-            $expandEditor.on('click', onClickExpandEditor);
+                })
+            })
         },
         oneditsave() {
-            $('#node-input-message').val(this.editor.getValue());
+            $('#node-input-message').val(this.editor.getValue())
 
-            this.editor.destroy();
+            this.editor.destroy()
 
-            delete this.editor;
+            delete this.editor
         },
-    };
+        outputs: 1,
+    }
 
     try {
-        RED.nodes.registerType(typeConfig.defaults.name.value, typeConfig);
+        RED.nodes.registerType(typeConfig.defaults.name.value, typeConfig)
     } catch (sms77_sms_RegisterTpl) {
-        console.error({sms77_sms_RegisterTpl});
+        console.error({sms77_sms_RegisterTpl})
     }
 </script>
 
 <script data-template-name='sms77-sms' type='text/html'>
     <div class='form-row'>
-        <label for='node-input-config'><i class='fa fa-user'></i> Config</label>
+        <label for='node-input-config' data-i18n='sms77-sms.config'><i
+                class='fa fa-user'></i></label>
         <input id='node-input-config'>
     </div>
 
@@ -99,10 +95,10 @@
         <label for='node-input-message'>
             <i class='fa fa-file-code-o'></i>
 
-            <span>Message</span>
+            <span data-i18n='sms77-sms.message'></span>
         </label>
 
-        <input type='hidden' id='node-input-message' autofocus='autofocus'>
+        <input type='hidden' id='node-input-message' autofocus/>
 
         <div style='position: absolute; right: 0; display: inline-block;
         text-align: right; font-size: 0.8em;'>
@@ -119,153 +115,141 @@
     </div>
 
     <div class='form-row'>
-        <label for='node-input-recipients'><i class='fa fa-mobile'
-                                              style='font-size:160%'></i>
-            Recipient(s)</label>
-        <input type='text' id='node-input-recipients' placeholder='msg.topic'>
+        <label for='node-input-recipients' data-i18n='sms77-sms.recipients'><i
+                class='fa fa-mobile'
+                style='font-size: 160%'></i></label>
+        <input id='node-input-recipients' placeholder='msg.topic'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-from'><i class='fa fa-envelope'></i> From
-            (Sender)</label>
-        <input type='text' id='node-input-from'>
+        <label for='node-input-from' data-i18n='sms77-sms.from'><i
+                class='fa fa-envelope'></i></label>
+        <input id='node-input-from' maxlength='16'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-label'><i class='fa fa-tachometer'></i>
-            Label</label>
-        <input type='text' id='node-input-label'>
+        <label for='node-input-label' data-i18n='sms77-sms.label'><i
+                class='fa fa-tachometer'></i></label>
+        <input id='node-input-label' maxlength='100'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-foreign_id'><i class='fa fa-tachometer'></i>
-            Foreign ID</label>
-        <input type='text' id='node-input-foreign_id'>
+        <label for='node-input-foreign_id' data-i18n='sms77-sms.foreignId'><i
+                class='fa fa-tachometer'></i></label>
+        <input id='node-input-foreign_id' maxlength='64'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-udh'><i class='fa fa-tachometer'></i> UDH</label>
-        <input type='text' id='node-input-udh'>
+        <label for='node-input-udh' data-i18n='sms77-sms.udh'><i
+                class='fa fa-tachometer'></i></label>
+        <input id='node-input-udh'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-ttl'><i class='fa fa-tachometer'></i> TTL</label>
-        <input type='text' id='node-input-ttl'>
+        <label for='node-input-ttl' data-i18n='sms77-sms.ttl'><i
+                class='fa fa-tachometer'></i></label>
+        <input id='node-input-ttl'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-delay'><i class='fa fa-tachometer'></i>
-            Delay</label>
-        <input type='text' id='node-input-delay'>
+        <label for='node-input-delay' data-i18n='sms77-sms.delay'><i
+                class='fa fa-tachometer'></i>
+        </label>
+        <input id='node-input-delay'/>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-json'><i class='fa fa-microchip'></i> Return
-            JSON?</label>
+        <label for='node-input-json' data-i18n='sms77-sms.json'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-json'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-unicode'><i class='fa fa-microchip'></i> Unicode?</label>
+        <label for='node-input-unicode' data-i18n='sms77-sms.unicode'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-unicode'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-flash'><i class='fa fa-microchip'></i>
-            Flash?</label>
+        <label for='node-input-flash' data-i18n='sms77-sms.flash'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-flash'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-details'><i class='fa fa-microchip'></i> Details?</label>
+        <label for='node-input-details' data-i18n='sms77-sms.details'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-details'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-utf8'><i class='fa fa-microchip'></i>
-            UTF8?</label>
+        <label for='node-input-utf8' data-i18n='sms77-sms.utf8'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-utf8'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-debug'><i class='fa fa-microchip'></i>
-            Debug?</label>
+        <label for='node-input-debug' data-i18n='sms77-sms.debug'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-debug'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-no_reload'><i class='fa fa-microchip'></i> No
-            Reload?</label>
+        <label for='node-input-no_reload' data-i18n='sms77-sms.noReload'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-no_reload'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-performance_tracking'><i
-                class='fa fa-microchip'></i> Performance Tracking?</label>
+        <label for='node-input-performance_tracking'
+               data-i18n='sms77-sms.performanceTracking'><i
+                class='fa fa-microchip'></i></label>
         <select id='node-input-performance_tracking'>
-            <option value='true'>True</option>
-            <option value='false'>False</option>
+            <option value='true'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.true'></option>
+            <option value='false'
+                    data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
     </div>
 
     <div class='form-row'>
-        <label for='node-input-name'><i class='fa fa-tag'></i> Name</label>
-        <input type='text' id='node-input-name' placeholder='sms77-sms'>
+        <label for='node-input-name' data-i18n='sms77-sms.name'>
+            <i class='fa fa-tag'></i></label>
+        <input id='node-input-name' placeholder='sms77-sms'/>
     </div>
-</script>
-
-<script data-help-name='sms77-sms' type='text/html'>
-    Send SMS message(s) via Sms77.io.
-    <hr/>
-    <p><b>Properties</b></p>
-    <code>Message</code> Text to be sent. Defaults to
-    <i>msg.payload</i> if not set.
-    <br/>
-    <code>Recipients</code> Comma separated list of mobile numbers or contacts. Defaults to
-    <i>msg.topic</i> if not set.
-    <br/>
-    <code>Delay</code> Date/Timestamp for delayed dispatch. Accepts an UNIX timestamp or a date of format yyyy-mm-dd hh:ii eg. 1141511104 or 2016-03-04 23:25:04.
-    <br/>
-    <code>Unicode</code> Force unicode transmission for Cyrillic, Arabic etc characters. SMS length gets reduced to 70 characters.
-    <br/>
-    <code>Flash</code> Setting this option to true sends the message with flash enabled.
-    <br/>
-    <code>UDH</code> Set a custom user data header.
-    <br/>
-    <code>TTL</code> Set a custom time to live.
-    <br/>
-    <code>No Reload</code> Switch off reload lock.
-    <br/>
-    <code>Label</code> Add a custom message label.
-    <br/>
-    <code>Performance
-        Tracking</code> Enable performance tracking for found URLs.
-    <br/>
-    <code>Foreign
-        ID</code> Custom ID included in DLR callbacks etc. Max. 64 chars, allowed characters:
-    <i>a-z, A-Z, 0-9, .-_@</i>.
-    <br/>
-    <code>UTF-8</code> Force UTF-8 character set.
-    <br/>
 </script>

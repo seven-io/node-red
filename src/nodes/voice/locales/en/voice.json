@@ -1,0 +1,15 @@
+{
+    "sms77-voice": {
+        "_description": {
+            "json": "Enable for returning a detailed response in JSON format.",
+            "recipients": "Comma separated list of mobile numbers or contacts."
+        },
+        "config": "Config",
+        "from": " From (Caller)",
+        "json": "Return JSON?",
+        "message": "Message",
+        "name": "Name",
+        "recipients": "Recipient(s)",
+        "xml": "Is XML?"
+    }
+}

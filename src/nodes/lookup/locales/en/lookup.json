@@ -1,0 +1,11 @@
+{
+    "sms77-lookup": {
+        "cnam": "CNAM",
+        "config": "Config",
+        "format": "Format",
+        "hlr": "HLR",
+        "json": "Return JSON?",
+        "mnp": "MNP",
+        "type": "Type"
+    }
+}

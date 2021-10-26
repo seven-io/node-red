@@ -1,6 +1,7 @@
 {
-  "author": "sms77 e.K.",
+  "author": "sms77 e.K. <support@sms77.io> (https://www.sms77.io/)",
   "bugs": {
+    "email": "support@sms77.io",
     "url": "https://github.com/sms77io/nodered-contrib-sms77/issues"
   },
   "dependencies": {
@@ -13,16 +14,20 @@
   "node-red": {
     "nodes": {
       "sms77-config": "src/nodes/config/config.js",
+      "sms77-lookup": "src/nodes/lookup/lookup.js",
       "sms77-sms": "src/nodes/sms/sms.js",
       "sms77-voice": "src/nodes/voice/voice.js"
     }
   },
   "homepage": "https://github.com/sms77io/nodered-contrib-sms77#readme",
   "keywords": [
-    "sms",
-    "text2speech",
+    "cnam",
+    "hlr",
+    "mnp",
     "node-red",
-    "sms77"
+    "sms",
+    "sms77",
+    "text2speech"
   ],
   "license": "MIT",
   "repository": {
@@ -32,5 +37,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.0.0"
+  "version": "3.1.0"
 }

@@ -1,4 +1,4 @@
-const BaseNode = require('../../BaseNode');
+const BaseNode = require('../../BaseMessageNode');
 
 module.exports = function (RED) {
     'use strict';

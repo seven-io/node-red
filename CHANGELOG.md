@@ -1,3 +1,7 @@
+3.1.0
+==================
+* add lookup node
+
 3.0.0
 ==================
 * fixed nodes paths

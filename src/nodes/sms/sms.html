@@ -1,84 +1,82 @@
 <script type='text/javascript'>
-    const typeConfig = {
-        category: 'mobile',
-        color: '#01C965',
-        defaults: {
-            config: {
-                required: true,
-                type: 'sms77-config',
-            },
-            debug: {},
-            delay: {},
-            details: {},
-            from: {},
-            foreign_id: {},
-            flash: {},
-            json: {},
-            label: {},
-            message: {},
-            name: {
-                value: 'sms77-sms',
-            },
-            no_reload: {},
-            performance_tracking: {},
-            recipients: {},
-            ttl: {},
-            udh: {},
-            unicode: {},
-            utf8: {},
-        },
-        icon: 'envelope.png',
-        inputs: 1,
-        oneditprepare() {
-            this.editor = RED.editor.createEditor({
-                id: 'node-input-message-editor',
-                lineNumbers: false,
-                mode: 'ace/mode/text',
-                options: {
-                    showPrintMargin: false
-                },
-                value: $('#node-input-message').val(),
-            })
-
-            const $expandEditor = $('#node-sms77-expand-editor')
-
-            this.editor.focus()
-
-            RED.popover.tooltip(
-                $expandEditor, RED._('node-red:common.label.expand'))
-
-            $expandEditor.on('click', ev => {
-                ev.preventDefault()
-
-                const complete = (value, cursor) => {
-                    this.editor.setValue(value, -1)
-
-                    this.editor.gotoLine(cursor.row + 1, cursor.column, false)
-
-                    setTimeout(() => this.editor.focus(), 300)
-                }
-
-                RED.editor.editText({
-                    complete,
-                    cursor: this.editor.getCursorPosition(),
-                    mode: 'text',
-                    value: this.editor.getValue(),
-                    width: 'Infinity',
-                })
-            })
-        },
-        oneditsave() {
-            $('#node-input-message').val(this.editor.getValue())
-
-            this.editor.destroy()
-
-            delete this.editor
-        },
-        outputs: 1,
-    }
-
     try {
-        RED.nodes.registerType(typeConfig.defaults.name.value, typeConfig)
+        RED.nodes.registerType('sms77-sms', {
+            category: 'mobile',
+            color: '#01C965',
+            defaults: {
+                config: {
+                    required: true,
+                    type: 'sms77-config',
+                },
+                debug: {},
+                delay: {},
+                details: {},
+                from: {},
+                foreign_id: {},
+                flash: {},
+                json: {},
+                label: {},
+                message: {},
+                name: {
+                    value: 'sms77-sms',
+                },
+                no_reload: {},
+                performance_tracking: {},
+                recipients: {},
+                ttl: {},
+                udh: {},
+                unicode: {},
+                utf8: {},
+            },
+            icon: 'envelope.png',
+            inputs: 1,
+            oneditprepare() {
+                this.editor = RED.editor.createEditor({
+                    id: 'node-input-message-editor',
+                    lineNumbers: false,
+                    mode: 'ace/mode/text',
+                    options: {
+                        showPrintMargin: false
+                    },
+                    value: $('#node-input-message').val(),
+                })
+
+                const $expandEditor = $('#node-sms77-expand-editor')
+
+                this.editor.focus()
+
+                RED.popover.tooltip(
+                    $expandEditor, RED._('node-red:common.label.expand'))
+
+                $expandEditor.on('click', ev => {
+                    ev.preventDefault()
+
+                    const complete = (value, cursor) => {
+                        this.editor.setValue(value, -1)
+
+                        this.editor.gotoLine(cursor.row + 1, cursor.column, false)
+
+                        setTimeout(() => this.editor.focus(), 300)
+                    }
+
+                    RED.editor.editText({
+                        complete,
+                        cursor: this.editor.getCursorPosition(),
+                        mode: 'text',
+                        value: this.editor.getValue(),
+                        width: 'Infinity',
+                    })
+                })
+            },
+            oneditsave() {
+                $('#node-input-message').val(this.editor.getValue())
+
+                this.editor.destroy()
+
+                delete this.editor
+            },
+            outputs: 1,
+        })
     } catch (sms77_sms_RegisterTpl) {
         console.error({sms77_sms_RegisterTpl})
     }

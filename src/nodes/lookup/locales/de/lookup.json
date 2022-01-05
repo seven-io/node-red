@@ -1,13 +1,13 @@
 {
     "sms77-lookup": {
         "cnam": "CNAM",
-        "config": "Config",
+        "config": "Konfiguration",
         "format": "Format",
         "hlr": "HLR",
-        "json": "Return JSON?",
+        "json": "JSON?",
         "mnp": "MNP",
         "name": "Name",
-        "numbers": "Number(s)",
-        "type": "Type"
+        "numbers": "Nummer(n)",
+        "type": "Typ"
     }
 }

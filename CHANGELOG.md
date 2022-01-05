@@ -1,3 +1,13 @@
+3.2.0
+==================
+* add missing translations
+* extend README
+* add .npmignore
+* add locale "de"
+* bump sms77-client to ^2.14.0
+* bump node-fetch to ^2.6.6
+* fix response validation for sms
+
 3.1.0
 ==================
 * add lookup node

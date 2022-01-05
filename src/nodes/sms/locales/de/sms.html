@@ -1,0 +1,57 @@
+<script data-help-name='sms77-sms' type='text/html'>
+    SMS-Versand via sms77.
+    <hr/>
+
+    <p><b>Eigenschaften</b></p>
+
+    <code>Nachricht</code> Der Nachrichteninhalt für den Versand.
+    Wenn nicht gesetzt, wird der Wert von <i>msg.payload</i> übernommen.
+    <br/>
+
+    <code>Ziele</code> Komma-separierte Liste von Rufnummern und/oder Kontakten/Gruppen aus dem Adressbuch bei sms77.
+    Wenn nicht gesetzt, wird der Wert von <i>msg.topic</i> übernommen.
+    <br/>
+
+    <code>Versandzeitpunkt</code> Versand verzöger; erfordert einen UNIX-Zeitstempel oder ein Datum formatiert als yyyy-mm-dd hh:ii
+    - beispielsweise 1141511104 oder 2025-03-04 23:25:04.
+    <br/>
+
+    <code>JSON?</code> Wenn
+    <i>wahr</i>, wird eine detaillierte Antwort formatiert als JSON zurückgegeben.
+    <br/>
+
+    <code>Unicode?</code> Wenn
+    <i>wahr</i>, wird die Schnittstellenerkennung ignoriert und die Nachricht als unicode encodiert.
+    Die maximale Länge pro SMS verringert sich dabei von 160 auf 70 Zeichen.
+    <br/>
+
+    <code>Flash?</code> Wenn
+    <i>wahr</i>, werden die SMS, geräteabhängig, direkt im Display angezeigt und nicht gespeichert.
+    <br/>
+
+    <code>UDH</code> Einen eigenen User Data Header setzen.
+    <br/>
+
+    <code>TTL</code> Eine eigene Gültigkeitsdauer in Minuten angeben.
+    <br/>
+
+    <code>Duplikate erlauben?</code> Wenn <i>wahr</i>, wird der Versand von Duplikaten erlaubt.
+    Als Duplikat gilt eine SMS mit identischem Ziel und Text innerhalb 180 Sekunden.
+    <br/>
+
+    <code>Label</code> Ein eigenes Label für Analytics setzen.
+    <br/>
+
+    <code>Performance Tracking?</code> Wenn
+    <i>wahr</i>, werden im Text enthaltene Links mit einem URL-Shortener ersetzt und Click Tracking aktiviert.
+    <br/>
+
+    <code>Foreign
+        ID</code> Einen eigenen Wert angeben, welcher bei DLR-Callbacks etc. zurückgegeben wird.
+    Die maximale Länge beträgt 64 Zeichen bestehend aus <i>a-z, A-Z, 0-9, .-_@</i>.
+    <br/>
+
+    <code>UTF-8?</code> Wenn
+    <i>wahr</i>, wird die Schnittstellenerkennung ignoriert und SMS als UTF-8 codiert.
+    <br/>
+</script>

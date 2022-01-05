@@ -1,7 +1,7 @@
 {
     "sms77-config": {
         "_defaults": {
-            "name": "Primary sms77.io Config"
+            "name": "Primary sms77 Config"
         },
         "apiKey": "API Key",
         "false": "False",

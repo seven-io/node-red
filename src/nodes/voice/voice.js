@@ -21,7 +21,7 @@ module.exports = function(RED) {
                 try {
                     const response = await Sms77VoiceNode.CLIENT.voice({...params, to})
                     const code = params.json ? response.success : response.split('\n')[0]
-                    const succeeded = ['100', '101'].includes(code)
+                    const succeeded = [100, 101].includes(Number(code))
 
                     if (!succeeded) return this._done(done, JSON.stringify(response), msg)
 

@@ -1,0 +1,11 @@
+{
+    "sms77-config": {
+        "_defaults": {
+            "name": "Primäre sms77 Konfiguration"
+        },
+        "apiKey": "API-Schlüssel",
+        "false": "Falsch",
+        "name": "Name",
+        "true": "Wahr"
+    }
+}

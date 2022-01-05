@@ -30,8 +30,11 @@ module.exports = function (RED) {
 
             Sms77SmsNode.CLIENT.sms(params)
                 .then(response => {
-                    const code = params.json ? response.success : response;
-                    const succeeded = ['100', '101'].includes(code);
+                    let code = response
+                    if (params.json) code = response.success
+                    else if (params.details) code = response.split('\n')[0]
+
+                    const succeeded = [100, 101].includes(Number(code));
 
                     if (!succeeded) return this._done(done, JSON.stringify(response), msg);
 

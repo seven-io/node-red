@@ -5,9 +5,9 @@
     "url": "https://github.com/sms77io/nodered-contrib-sms77/issues"
   },
   "dependencies": {
-    "sms77-client": "^2.14.0",
-    "node-fetch": "^2.6.6",
-    "globalthis": "^1.0.2"
+    "sms77-client": "^2.24.0",
+    "node-fetch": "^2.6.7",
+    "globalthis": "^1.0.3"
   },
   "description": "sms77 node collection for Node-RED.",
   "name": "nodered-contrib-sms77",
@@ -38,5 +38,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.2.1"
+  "version": "3.2.2"
 }

@@ -1,29 +1,34 @@
-const BaseNode = require('../../BaseMessageNode')
+const NodeUtil = require('../../NodeUtil')
+const Util = require('../../Util')
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     'use strict'
 
-    class Sms77VoiceNode {
-        constructor(config) {
-            BaseNode(this, RED, config)
-        }
+    function Sms77VoiceNode(config) {
+        RED.nodes.createNode(this, config)
 
-        async _onInput(msg, send, done) {
+        const node = this
+        const nodeUtil = new NodeUtil(node, config)
+        const client = Util.initClient(RED, config)
+
+        this.on('input', async function onInput(msg, send, done) {
+            if (!send) send = () => node.send.apply(node, [msg, send, done]) // If this is pre-1.0, 'send' will be undefined, so fallback to node.send
+
             const params = {
-                from: this._emptyStringFallback('from'),
-                json: 'true' === Sms77VoiceNode.CFG.json,
-                text: this._emptyStringFallback('message', msg.payload),
-                xml: 'true' === Sms77VoiceNode.CFG.xml,
+                from: nodeUtil.emptyStringFallback('from'),
+                json: 'true' === config.json,
+                text: nodeUtil.emptyStringFallback('message', msg.payload),
+                xml: 'true' === config.xml,
             }
-            const recipients = this._emptyStringFallback('recipients', msg.topic)
+            const recipients = nodeUtil.emptyStringFallback('recipients', msg.topic)
 
             for (const to of recipients.split(',')) {
                 try {
-                    const response = await Sms77VoiceNode.CLIENT.voice({...params, to})
+                    const response = await client.voice({...params, to})
                     const code = params.json ? response.success : response.split('\n')[0]
                     const succeeded = [100, 101].includes(Number(code))
 
-                    if (!succeeded) return this._done(done, JSON.stringify(response), msg)
+                    if (!succeeded) return nodeUtil.onDone(done, JSON.stringify(response), msg)
 
                     let failed = 0
                     let sent = 1
@@ -35,12 +40,13 @@ module.exports = function(RED) {
                             true === msg.success ? sent++ : failed++
                     }
 
-                    this._onSuccess(sent, failed, send, msg, response, done)
+                    nodeUtil.status(`${sent} calls | ${failed} failed`)
+                    nodeUtil.onSuccess(send, msg, response, done)
                 } catch (e) {
-                    this._errorHandler(done, msg)(e)
+                    nodeUtil.errorHandler(done, msg)(e)
                 }
             }
-        }
+        })
     }
 
     RED.nodes.registerType('sms77-voice', Sms77VoiceNode)

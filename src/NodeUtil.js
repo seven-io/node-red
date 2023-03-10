@@ -1,12 +1,19 @@
 const Util = require('./Util')
 
 module.exports = class NodeUtil {
-    constructor(node) {
+    constructor(node, config) {
         this.node = node
+        this.config = config
+
+        this.status(`${node.name} connected`, 'blue', 'ring')
     }
 
-    emptyStringFallback = (key, value = null) => {
-        const cfg = this.node.constructor.CFG
+    onDone = (done, error, msg) => done
+        ? done(error) // Use done if defined (1.0+)
+        : this.node.error(error, msg) // Fallback to node.error (pre-1.0)
+
+    emptyStringFallback = (key, value = '') => {
+        const cfg = this.config
         if (!key in cfg) return value
         return '' === (cfg[key] || '') ? value : cfg[key]
     }
@@ -15,18 +22,12 @@ module.exports = class NodeUtil {
         this.node.status({fill, shape, text})
     }
 
-    onSuccess = (sent, failed, send, msg, payload, done) => {
-        this.status(`${sent} sent | ${failed} failed`)
+    onSuccess = (send, msg, payload, done) => {
         send({...msg, payload})
         if (done) done() // Check done exists (1.0+)
     }
 
-    onInput = async (msg, send, done) => {
-        if (!send) send = () => this.node.send.apply(this.node, [msg, send, done]) // If this is pre-1.0, 'send' will be undefined, so fallback to node.send
-        await this.node._onInput(msg, send, done)
-    }
-
     errorHandler = (done, msg) => {
-        return e => this.node._done(done, Util.stringify(e), msg)
+        return e => this.onDone(done, Util.stringify(e), msg)
     }
 }

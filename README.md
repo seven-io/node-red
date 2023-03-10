@@ -1,12 +1,12 @@
-![](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "sms77 logo")
+![](https://www.seven.io/wp-content/uploads/Logo.svg "seven Logo")
 
-# nodered-contrib-sms77
+# Official seven nodes for Node-RED
 
 [Node-RED](http://nodered.org) node collection
-for [sending SMS](https://www.sms77.io/en/products/send-sms/)
-, [text-to-speech calls](https://www.sms77.io/en/products/voice/)
-and [number validation](https://www.sms77.io/en/products/number-validation/)
-via [sms77](https://www.sms77.io/).
+for [sending SMS](https://www.seven.io/en/products/send-sms/)
+, [text-to-speech calls](https://www.seven.io/en/products/voice/)
+and [number validation](https://www.seven.io/en/products/number-validation/)
+via [seven](https://www.seven.io/).
 
 ## Installation
 
@@ -22,8 +22,8 @@ Run the following command in your Node-RED user directory - usually `~/.node-red
 
 ### sms77-config node
 
-*API Key*: An API key from sms77 - create one in
-your [developer dashboard](https://app.sms77.io/developer).
+*API Key*: An API key from [seven](https://help.seven.io/en/api-key-access) - create one in
+your [developer dashboard](https://app.seven.io/developer).
 
 *Name*: An arbitrary name for the node, helpful if you use multiple configurations.
 
@@ -39,7 +39,7 @@ Use this node for sending SMS.
 *From (Sender)*: Set a custom sender identifier.
 
 *Label*: Set a custom label for
-sorting [analytics](https://www.sms77.io/en/docs/gateway/http-api/analytics/).
+sorting [analytics](https://www.seven.io/en/docs/gateway/http-api/analytics/).
 
 *Foreign ID*: Optionally set a custom value returned in callbacks.
 
@@ -54,7 +54,7 @@ date/time string formatted as yyyy-mm-dd hh:ii.
 
 *Unicode?*: If enabled, enforce unicode encoding ignoring API detection.
 
-*Flash?*: If enabled, SMS get sent as [flash](https://help.sms77.io/en/flash-sms).
+*Flash?*: If enabled, SMS get sent as [flash](https://help.seven.io/en/flash-sms).
 
 *Details?*: If enabled, the API returns dispatch specific information - is ignored
 if `json` is enabled.
@@ -68,7 +68,7 @@ testing.
 seconds, gets allowed.
 
 *Performance Tracking?*: If enabled, links found in the text get replaced with a shortened
-URL and [click tracking](https://help.sms77.io/en/performance-tracking-1) enabled.
+URL and [click tracking](https://help.seven.io/en/performance-tracking-1) enabled.
 
 *Name*: An arbitrary name for the node helpful for identification.
 
@@ -84,8 +84,8 @@ Use this node for converting a text to speech, call a number and read the messag
 .
 
 *From (Caller)*: The caller identifier which must be your
-own [virtual number](https://help.sms77.io/en/ordering-your-own-number) or
-a [shared number](https://www.sms77.io/en/docs/glossary/shared-numbers/).
+own [virtual number](https://help.seven.io/en/ordering-your-own-number) or
+a [shared number](https://www.seven.io/en/docs/glossary/shared-numbers/).
 
 *Is XML?*: If enabled, the API parses the text as XML format.
 
@@ -109,11 +109,11 @@ other types return JSON by default.
 
 > Required options are marked with an asterisk (*).
 
-Visit our [API Documentation](https://www.sms77.io/en/docs/gateway/http-api/) for a
+Visit our [API Documentation](https://www.seven.io/en/docs/gateway/http-api/) for a
 detailed request description.
 
 ## Support
 
-Need help? Feel free to [contact us](https://www.sms77.io/en/company/contact/).
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/).
 
 [![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)

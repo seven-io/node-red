@@ -1,12 +1,12 @@
 {
-  "author": "seven communications GmbH & Co. KG <support@seven.io> (https://www.seven.io/)",
+  "author": "seven communications GmbH & Co. KG <support@seven.io> (https://www.seven.io)",
   "bugs": {
     "email": "support@seven.io",
     "url": "https://github.com/seven-io/node-red/issues"
   },
   "dependencies": {
-    "sms77-client": "^2.25.0",
-    "node-fetch": "^2.6.7",
+    "sms77-client": "^2.27.0",
+    "node-fetch": "^2.7.0",
     "globalthis": "^1.0.3"
   },
   "description": "sms77 node collection for Node-RED.",
@@ -38,5 +38,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.3.0"
+  "version": "3.4.0"
 }

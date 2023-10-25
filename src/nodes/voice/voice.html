@@ -22,6 +22,9 @@
             recipients: {
                 value: '',
             },
+            ringtime: {
+                value: '',
+            },
             xml: {
                 value: 'false',
             },
@@ -140,6 +143,12 @@
             <option value='false'
                     data-i18n='nodered-contrib-sms77/sms77-config:sms77-config.false'></option>
         </select>
+    </div>
+
+    <div class='form-row'>
+        <label for='node-input-ringtime' data-i18n='sms77-voice.ringtime'><i
+                class='fa fa-envelope'></i></label>
+        <input id='node-input-ringtime' max='60' min='1' type='number'/>
     </div>
 
     <div class='form-row'>

@@ -1,3 +1,9 @@
+3.4.0
+==================
+* add parameter `ringtime` to voice node
+* bump sms77-client to ^2.26.0
+* bump node-fetch to ^2.7.0
+
 3.3.0
 ==================
 * use empty string for unset parameters

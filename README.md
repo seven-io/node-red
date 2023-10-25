@@ -91,6 +91,8 @@ a [shared number](https://www.seven.io/en/docs/glossary/shared-numbers/).
 
 *Return JSON?*: If enabled, the API returns a detailed JSON response.
 
+*Ringtime*: Define how long to initiate the call.
+
 *Name*: An arbitrary name for the node helpful for identification.
 
 ### sms77-lookup node

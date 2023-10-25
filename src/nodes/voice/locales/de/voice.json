@@ -6,6 +6,7 @@
         "message": "Nachricht",
         "name": "Name",
         "recipients": "Anrufziel(e)",
+        "ringtime": "Klingeldauer",
         "xml": "XML?"
     }
 }

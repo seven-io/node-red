@@ -61,9 +61,6 @@ if `json` is enabled.
 
 *UTF8?*: If enabled, enforce UTF8 encoding ignoring API detection.
 
-*Debug?*: If enabled, the API validates the request but doesn't send out SMS - useful for
-testing.
-
 *No Reload?*: If enabled, dispatch of duplicate SMS, text and recipient alike within 180
 seconds, gets allowed.
 

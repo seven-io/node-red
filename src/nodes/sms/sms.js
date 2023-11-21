@@ -15,7 +15,6 @@ module.exports = function (RED) {
             if (!send) send = () => node.send.apply(node, [msg, send, done]) // If this is pre-1.0, 'send' will be undefined, so fallback to node.send
 
             const params = {
-                debug: 'true' === config.debug,
                 delay: nodeUtil.emptyStringFallback('delay'),
                 details: 'true' === config.details,
                 flash: 'true' === config.flash,

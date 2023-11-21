@@ -1,7 +1,6 @@
 {
     "sms77-sms": {
         "config": "Config",
-        "debug": "Debug?",
         "delay": "Delay",
         "details": "Details?",
         "flash": "Flash?",

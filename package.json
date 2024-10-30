@@ -10,7 +10,7 @@
     "globalthis": "^1.0.3"
   },
   "description": "sms77 node collection for Node-RED.",
-  "name": "nodered-contrib-sms77",
+  "name": "@seven.io/nodered",
   "node-red": {
     "nodes": {
       "sms77-config": "src/nodes/config/config.js",

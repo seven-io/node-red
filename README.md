@@ -13,10 +13,10 @@ via [seven](https://www.seven.io/).
 Run the following command in your Node-RED user directory - usually `~/.node-red`:
 
 **NPM**
-`npm install nodered-contrib-sms77`
+`npm install @seven.io/nodered`
 
 **Yarn**
-`yarn add nodered-contrib-sms77`
+`yarn add @seven.io/nodered`
 
 ## Request Options
 

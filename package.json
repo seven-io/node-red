@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "globalthis": "^1.0.4",
-    "node-fetch": "^2.7.0",
+    "node-fetch": "^3.3.2",
     "@seven.io/client": "^3.0.2"
   },
   "description": "seven node collection for Node-RED.",

@@ -1,119 +1,94 @@
-<img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
+<p align="center">
+  <img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" alt="seven logo" />
+</p>
 
-# Official seven nodes for Node-RED
+<h1 align="center">seven Nodes for Node-RED</h1>
 
-[Node-RED](http://nodered.org) node collection
-for [sending SMS](https://www.seven.io/en/products/send-sms/)
-, [text-to-speech calls](https://www.seven.io/en/products/voice/)
-and [number validation](https://www.seven.io/en/products/number-validation/)
-via [seven](https://www.seven.io/).
+<p align="center">
+  Official <a href="https://nodered.org">Node-RED</a> node collection for sending SMS, placing text-to-speech calls and validating phone numbers via the seven gateway.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="MIT License" /></a>
+  <a href="https://www.npmjs.com/package/@seven.io/nodered"><img src="https://img.shields.io/npm/v/@seven.io/nodered" alt="npm" /></a>
+  <img src="https://img.shields.io/badge/Node--RED-2.x%20|%203.x-red" alt="Node-RED 2.x | 3.x" />
+  <img src="https://img.shields.io/badge/Node.js-14%2B-brightgreen" alt="Node.js 14+" />
+</p>
+
+---
+
+## Nodes
+
+| Node | Action |
+|------|--------|
+| `seven-config` | Stores your API key for all other seven nodes |
+| `seven-sms` | Send an SMS |
+| `seven-voice` | Convert text to speech and place a call |
+| `seven-lookup` | HLR / MNP / CNAM / number-format lookup |
+
+## Prerequisites
+
+- A self-hosted [Node-RED](https://nodered.org) instance
+- A [seven account](https://www.seven.io/) with API key ([How to get your API key](https://help.seven.io/en/developer/where-do-i-find-my-api-key))
 
 ## Installation
 
-Run the following command in your Node-RED user directory - usually `~/.node-red`:
+In your Node-RED user directory (typically `~/.node-red`):
 
-**NPM**
-`npm install @seven.io/nodered`
+```bash
+npm install @seven.io/nodered
+# or
+yarn add @seven.io/nodered
+```
 
-**Yarn**
-`yarn add @seven.io/nodered`
+Restart Node-RED so the palette picks up the new nodes.
 
-## Request Options
+## Configuration
 
-### seven-config node
+### `seven-config` node
 
-*API Key*: An API key from [seven](https://help.seven.io/en/api-key-access) - create one in
-your [developer dashboard](https://app.seven.io/developer).
+| Field | Description |
+|-------|-------------|
+| API Key | Your seven API key |
+| Name | Optional label (helpful with multiple configurations) |
 
-*Name*: An arbitrary name for the node, helpful if you use multiple configurations.
+### `seven-sms` node
 
-### seven-sms node
-Use this node for sending SMS.
+| Field | Description |
+|-------|-------------|
+| Config | A `seven-config` node |
+| Message | SMS body. Defaults to `msg.payload`. Max 1520 chars |
+| Recipient(s) | Comma-separated phone numbers. Defaults to `msg.topic` |
+| From (Sender) | Custom sender ID |
+| Label | Custom label for [analytics](https://www.seven.io/en/docs/gateway/http-api/analytics/) |
+| Foreign ID | Optional value returned in callbacks |
+| Delay | Time-delayed dispatch as Unix timestamp or `yyyy-mm-dd hh:ii` |
+| Flash | Send as [flash](https://help.seven.io/en/flash-sms) |
+| Performance Tracking | Enable URL shortening + [click tracking](https://help.seven.io/en/performance-tracking-1) |
+| Name | Identification label |
 
-*Config**: A seven-config node.
+### `seven-voice` node
 
-*Message**: The SMS text which defaults to `msg.payload`. May not exceed 1520 characters.
+| Field | Description |
+|-------|-------------|
+| Config | A `seven-config` node |
+| Message | Spoken text. Defaults to `msg.payload` |
+| Recipient | Phone number to call. Defaults to `msg.topic` |
+| From | Caller ID. Must be a verified number or shared number |
+| XML | Toggle XML response payload |
 
-*Recipient(s)**: SMS recipient(s) separated by comma defaulting to `msg.topic`.
+### `seven-lookup` node
 
-*From (Sender)*: Set a custom sender identifier.
-
-*Label*: Set a custom label for
-sorting [analytics](https://www.seven.io/en/docs/gateway/http-api/analytics/).
-
-*Foreign ID*: Optionally set a custom value returned in callbacks.
-
-*Delay*: Set a custom date for time-delayed dispatch in the form of a Unix timestamp or a
-date/time string formatted as yyyy-mm-dd hh:ii.
-
-*Flash?*: If enabled, SMS get sent as [flash](https://help.seven.io/en/flash-sms).
-
-*Performance Tracking?*: If enabled, links found in the text get replaced with a shortened
-URL and [click tracking](https://help.seven.io/en/performance-tracking-1) enabled.
-
-*Name*: An arbitrary name for the node helpful for identification.
-
-### seven-voice node
-Use this node for converting a text to speech, call a number and read the message out loud.
-
-*Config**: A seven-config node.
-
-*Message**: The text to convert to voice which defaults to `msg.payload`. May not exceed
-10.000 characters.
-
-*Recipient(s)**: The recipient(s) of the call separated by comma defaulting to `msg.topic`
-.
-
-*From (Caller)*: The caller identifier which must be your
-own [virtual number](https://help.seven.io/en/ordering-your-own-number) or
-a [shared number](https://www.seven.io/en/docs/glossary/shared-numbers/).
-
-*Ringtime*: Define how long to initiate the call.
-
-*Name*: An arbitrary name for the node helpful for identification.
-
-### seven-rcs node
-Use this node for sending RCS.
-
-*Config**: A seven-config node.
-
-*Message**: The SMS text which defaults to `msg.payload`. May not exceed 1520 characters.
-
-*Recipient**: Phone number or contact/group - defaulting to `msg.topic`.
-
-*From (Sender)*: Set an optional agent id.
-
-*Label*: Set a custom label for
-sorting [analytics](https://www.seven.io/en/docs/gateway/http-api/analytics/).
-
-*Foreign ID*: Optionally set a custom value returned in callbacks.
-
-*Delay*: Set a custom date for time-delayed dispatch in the form of a Unix timestamp or a
-date/time string formatted as yyyy-mm-dd hh:ii.
-
-*Performance Tracking?*: If enabled, links found in the text get replaced with a shortened
-URL and [click tracking](https://help.seven.io/en/performance-tracking-1) enabled.
-
-*Name*: An arbitrary name for the node helpful for identification.
-
-### seven-lookup node
-Use this node for performing number lookups.
-
-*Config**: A seven-config node.
-
-*Number(s)**: The phone number(s) to look up separated by comma.
-
-*Type**: The lookup type to perform.
-
-*Name*: An arbitrary name for the node helpful for identification.
-
-> Required options are marked with an asterisk (*).
-
-Visit our [API Documentation](https://www.seven.io/en/docs/gateway/http-api/) for a
-detailed request description.
+| Field | Description |
+|-------|-------------|
+| Config | A `seven-config` node |
+| Type | `cnam` / `format` / `hlr` / `mnp` |
+| Number | Phone number to look up |
 
 ## Support
 
-Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/).
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/) or [open an issue](https://github.com/seven-io/node-red/issues).
 
-[![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)
+## License
+
+[MIT](LICENSE)

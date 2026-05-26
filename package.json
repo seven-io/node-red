@@ -42,7 +42,7 @@
   "version": "5.0.0",
   "devDependencies": {
     "mocha": "^10.8.2",
-    "node-red": "^4.0.5",
+    "node-red": "^4.1.10",
     "node-red-node-test-helper": "^0.3.4"
   }
 }
